@@ -1,17 +1,16 @@
-import { Client, Events, REST, Routes } from "discord.js";
+import { Client, REST, Routes } from "discord.js";
+import Event from "../Event";
 import Commands from "../Commands";
 
-export default (client: Client): void => {
-    client.on(Events.ClientReady, async() => {
-        if(!client.user || !client.application) {
-            return;
-        }
+export default new Event("ready", async (client: Client) => {
+    if(!client.user || !client.application) {
+        return;
+    }
 
-        await registerCommands();
+    await registerCommands();
 
-        console.log(`${client.user.tag} is online`);
-    });
-}
+    console.log(`${client.user.tag} is online`);
+});
 
 const registerCommands = async() => {
     const commands = Commands.map(c => c.data.toJSON());

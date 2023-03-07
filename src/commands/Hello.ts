@@ -1,8 +1,8 @@
 import { SlashCommandBuilder } from "discord.js";
-import { Command } from "../Command";
+import Command from "../Command";
 
-export const Hello: Command = {
-    data: new SlashCommandBuilder()
+export default new Command(
+    new SlashCommandBuilder()
         .setName("hello")
         .setDescription("Introduce yourself to the community")
         .addStringOption(option =>
@@ -16,7 +16,7 @@ export const Hello: Command = {
                     { name: "Senior", value: "senior" }
                 )
         ),
-    execute: async (interaction) => {
+    async (interaction) => {
         const experience = interaction.options.get("experience");
 
         const content = `Your experience is: ${experience?.value ?? "Unknown"}`;
@@ -26,4 +26,4 @@ export const Hello: Command = {
             content
         });
     }
-};
+);

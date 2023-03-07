@@ -1,8 +1,7 @@
-import { Client, Events, Interaction } from "discord.js";
+import { Interaction } from "discord.js";
 import commandHandler from "../commandHandler";
+import Event from "../Event";
 
-export default (client: Client): void => {
-    client.on(Events.InteractionCreate, async(interaction: Interaction) => {
-        await commandHandler(interaction);
-    });
-};
+export default new Event("interactionCreate", async(interaction: Interaction) => {
+    await commandHandler(interaction);
+});
