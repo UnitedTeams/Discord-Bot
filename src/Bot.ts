@@ -12,6 +12,6 @@ const client = new Client({
 });
 
 loadFiles<Event<any>>("events")
-    .forEach(e => client.on(e.name, e.execute));
+  .then(events => events.forEach(e => client.on(e.name, e.execute)));
 
 client.login(token);

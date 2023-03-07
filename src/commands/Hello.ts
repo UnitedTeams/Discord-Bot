@@ -17,9 +17,9 @@ export default new Command(
                 )
         ),
     async (interaction) => {
-        const experience = interaction.options.get("experience");
+        const experience = interaction.options.getString("experience");
 
-        const content = `Your experience is: ${experience?.value ?? "Unknown"}`;
+        const content = `Your experience is: ${experience ?? "Unknown"}`;
 
         await interaction.reply({
             ephemeral: true,
