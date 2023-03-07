@@ -1,15 +1,17 @@
-import { Client, ClientOptions } from "discord.js";
+import { Client, GatewayIntentBits } from "discord.js";
 import * as dotenv from "dotenv";
+import ready from "./events/ready";
+import interactionCreate from "./events/interactionCreate";
 
 dotenv.config();
 
 const token = process.env.TOKEN;
 
-console.log("Bot is starting...");
-
 const client = new Client({
-  intents: [],
+  intents: [GatewayIntentBits.Guilds],
 });
-client.login(token);
 
-console.log(client);
+ready(client);
+interactionCreate(client);
+
+client.login(token);
