@@ -1,15 +1,18 @@
-import { Client, ClientOptions } from "discord.js";
-import * as dotenv from "dotenv";
+import { Client, GatewayIntentBits } from 'discord.js';
+import * as dotenv from 'dotenv';
+import { loadFiles } from './Helpers';
+import Event from './Event';
 
 dotenv.config();
 
 const token = process.env.TOKEN;
 
-console.log("Bot is starting...");
-
 const client = new Client({
-  intents: [],
+  intents: [GatewayIntentBits.Guilds],
 });
-client.login(token);
 
-console.log(client);
+loadFiles<Event<never>>('events').then((events) =>
+  events.forEach((e) => client.on(e.name, e.execute)),
+);
+
+client.login(token);
